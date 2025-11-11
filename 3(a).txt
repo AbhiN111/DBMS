@@ -1,0 +1,23 @@
+CREATE DATABASE College;
+
+USE College;
+
+CREATE TABLE Student(Roll INT PRIMARY KEY, Name VARCHAR(50), Address VARCHAR(50));
+
+CREATE TABLE Subject(sub_code INT PRIMARY KEY, sub_name VARCHAR(50));
+
+CREATE TABLE Marks(Roll INT, sub_code INT, marks INT, FOREIGN KEY (Roll) REFERENCES Student(Roll), FOREIGN KEY(sub_code) REFERENCES Subject(sub_code));
+
+INSERT INTO Student VALUES(1,'Abhishek','Pune'),(2,'Snehal','Mumbai'),(3,'Mohit','Nashik'),(4,'Hetavi','Nagpur'),(5,'Bhavesh','Kolhapur');
+
+INSERT INTO Subject VALUES (101,'DBMS'),(102,'CNS'),(103,'SPM'),(104,'SPOS'),(105,'TOC');
+
+INSERT INTO Marks VALUES (1,101,85),(2,102,60),(3,103,72),(4,104,90),(5,105,68);
+
+UPDATE Subject SET sub_name='Database Management System' WHERE sub_name='DBMS';
+
+SELECT s.Name, m.marks FROM Student s JOIN Marks m ON s.Roll=m.Roll WHERE m.marks<75;
+
+DELETE FROM Marks WHERE Roll IN (SELECT Roll FROM Student WHERE Name='Bhavesh');
+
+DELETE FROM Student WHERE Name='Bhavesh';

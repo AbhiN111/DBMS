@@ -1,0 +1,29 @@
+CREATE DATABASE Company;
+
+USE Company;
+
+CREATE TABLE Employee (Eccode INT PRIMARY KEY, Name VARCHAR(50), Desig VARCHAR(50), Sgrade CHAR(3), DOJ DATE, DOB DATE);
+
+CREATE TABLE Salgrade (Sgrade CHAR(3) PRIMARY KEY, Salary INT, HRA INT);
+
+INSERT INTO Employee VALUES (101, 'Vikrant', 'Executive', 'S03', '2003-03-23', '1980-01-13'), (102, 'Ravi', 'Head-IT', 'S02', '2010-02-12', '1987-07-02'), (103, 'John Cena', 'Receptionist', 'S03', '2009-06-24', '1983-02-24'), (105, 'Azhar Ansari', 'GM', 'S02', '2009-08-11', '1984-03-03'), (108, 'Priyam Sen', 'CEO', 'S01', '2004-12-29', '1982-01-19');
+
+INSERT INTO Salgrade VALUES ('S01', 56000, 18000), ('S02', 32000, 12000), ('S03', 24000, 8000);
+
+SELECT Name, Desig FROM Employee WHERE Sgrade IN ('S02', 'S03');
+
+SELECT Name, Desig, Sgrade FROM Employee WHERE YEAR(DOJ) = 2009;
+
+SELECT Sgrade, Salary*12 AS Annual_Salary FROM Salgrade;
+
+SELECT Sgrade, COUNT(*) AS No_of_Employees FROM Employee GROUP BY Sgrade;
+
+SELECT e.Name, e.Desig, s.Salary, s.HRA FROM Employee e JOIN Salgrade s ON e.Sgrade = s.Sgrade WHERE s.Salary < 50000;
+
+SELECT MIN(DOJ) AS Min_DOJ, MAX(DOB) AS Max_DOB FROM Employee;
+
+SELECT Sgrade, Salary + HRA AS Total FROM Salgrade WHERE Sgrade = 'S02';
+
+SELECT COUNT(DISTINCT Sgrade) AS Distinct_Sgrades FROM Employee;
+
+SELECT SUM(Salary) AS Sum_Salary, AVG(Salary) AS Avg_Salary FROM Salgrade;

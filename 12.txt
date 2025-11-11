@@ -1,0 +1,11 @@
+use SalesDB;
+
+db.Orders.insertMany([{Order_id : 1, Customer : "Abhishek", City :"Delhi", Amount : 5000}, {Order_id : 2, Customer : "Snehal", City :"Mumbai", Amount : 7000}, {Order_id : 3, Customer : "Hetavi", City :"Delhi", Amount : 3000}, {Order_id : 4, Customer : "Mangesh", City :"Chennai", Amount : 8000},{Order_id : 5, Customer : "Saad", City :"Mumbai", Amount : 2000}]);
+
+var mapFunction = function() {emit(this.City, this.Amount);};
+
+var reduceFunction = function(key, values) {return Array.sum(values);};
+
+db.Orders.mapReduce(mapFunction, reduceFunction, { out: "City_Total_Sales" });
+
+db.City_Total_Sales.find();

@@ -1,0 +1,25 @@
+use LibraryDB;
+
+db.Students.insertMany([{Roll : 1, Name : "Abhishek", Address : "Pune", Age : 21, Marks : 85}, {Roll : 2, Name : "Snehal", Address : "Delhi", Age : 19, Marks : 92}, {Roll : 3, Name : "Saad", Address : "Chandrapur", Age : 21, Marks : 78 }, {Roll : 4, Name : "Mangesh", Address : "Nagpur", Age : 20, Marks : 65}, {Roll : 5, Name : "Hetavi", Address : "Mumbai"}]);
+
+db.Students.find();
+
+db.Students.find({Roll : 2});
+
+db.Students.find({Marks : {$gt : 80} });
+
+db.Students.find({$and : [{Age :{$gte : 20}}, {Age :{$lte : 22} }]});
+
+db.Students.find({$or: [ {Address : "Pune"},{Address : "Delhi"}] });
+
+db.Students.updateOne({Roll : 1}, {$set :{Marks : 90}});
+
+db.Students.updateMany({Address : "Delhi"}, {$inc :{Marks: 5}});
+
+db.Students.insert({Roll : 6, Name: "Abhay", Address : "Nagar", Age : 20, Marks : 88});
+
+db.Students.deleteOne({ Roll: 5 });
+
+db.Students.deleteMany({ Marks: { $lt: 60 } });
+
+db.Students.find();

@@ -1,0 +1,23 @@
+CREATE DATABASE College;
+
+USE College;
+
+CREATE TABLE Student(Roll INT PRIMARY KEY, Name VARCHAR(50), Address VARCHAR(100));
+
+CREATE TABLE Subject(sub_code INT PRIMARY KEY, sub_name VARCHAR(20));
+
+CREATE TABLE Marks(Roll INT, sub_code INT, marks INT, FOREIGN KEY(Roll) REFERENCES Student(Roll), FOREIGN KEY(sub_code) REFERENCES Subject(sub_code));
+
+INSERT INTO Student VALUES (1,'Abhishek','Pune'),(2,'Snehal','Mumbai');
+
+INSERT INTO Subject VALUES (101,'DBMS'),(102,'Networking');
+
+INSERT INTO Marks VALUES (1,101,85),(2,102,90);
+
+CREATE VIEW Subject_View AS SELECT * FROM Subject;
+
+SELECT * FROM Subject_View;
+
+CREATE INDEX idx_subcode ON Marks(sub_code);
+
+SHOW INDEX FROM Marks;
