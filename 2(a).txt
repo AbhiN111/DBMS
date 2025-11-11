@@ -1,0 +1,33 @@
+CREATE DATABASE College;
+
+USE College;
+
+CREATE TABLE Student(Roll INT PRIMARY KEY, Name VARCHAR(50), Address VARCHAR(100));
+
+INSERT INTO Student VALUES (1,'Abhishek','Pune'),(2,'Mohit','Nagpur'),(3,'Abhay','Nashik');
+
+CREATE TABLE Subject (sub_code INT PRIMARY KEY, sub_name VARCHAR(50));
+
+INSERT INTO Subject VALUES (101,'DBMS'),(102,'CNS'),(103,'SPOS');
+
+CREATE TABLE Marks (Roll INT, sub_code INT, marks INT, FOREIGN KEY(Roll) REFERENCES Student(Roll), FOREIGN KEY (sub_code) REFERENCES Subject(sub_code));
+
+INSERT INTO Marks VALUES (1,101,85),(1,102,90),(2,101,75),(2,103,80),(3,102,88),(3,103,92);
+
+ALTER TABLE Student ADD DOB DATE;
+
+ALTER TABLE Student MODIFY Address VARCHAR(150);
+
+RENAME TABLE Subject TO Sub;
+
+TRUNCATE TABLE Marks;
+
+TRUNCATE TABLE Subject;
+
+TRUNCATE TABLE Student;
+
+DROP TABLE Marks;
+
+DROP TABLE Sub;
+
+DROP TABLE Student;
