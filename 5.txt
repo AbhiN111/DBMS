@@ -1,0 +1,48 @@
+create database library;
+
+use library;
+
+create table Borrower(Rollin int primary key, Name varchar(25), DateOfIssue date, NameofBook varchar(25), Status varchar(3));
+
+desc borrower;
+
+create table Fine(Rollno int primary key, Date date, amt int);
+
+desc Fine;
+
+insert into Borrower values(1,'Abhi','2019-07-13','dbms','I'), (2,'Riya','2019-07-28','sql','I'), (33,'Snehal','2019-05-13','toc','I'), (85,'Hetavi',
+'2019-06-20','java','I');
+
+select*from Borrower;
+
+
+delimiter $
+create procedure calfine(Rollno int(20),name varchar(50))
+begin
+declare ldate date;
+declare fine int(20);
+declare day int(20);
+select DateOfIssue into ldate from Borrower where Rollin=Rollno and NameofBook=name;
+set day = DATEDIFF(CURDATE(),ldate);
+IF(day>=15 and day<=30) then set fine=day*5;
+ELSEIF(day>30) then set fine=day*50;
+end IF;
+update Borrower set Status='R' where Rollin=Rollno and NameofBook=name;
+IF(fine is not null) then
+insert into Fine values(Rollno,CURDATE(),fine);
+end IF;
+end $
+
+call calfine(33,'toc')$
+
+select*from Fine$
+
+call calfine(1,'dbms')$
+
+call calfine(2,'sql')$
+
+select*from Borrower $
+
+select*from Fine$
+
+
